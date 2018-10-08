@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Would you have survived on the Titanic?</h1>
+    <br><hr><br>
+
+    <!--Section below will "flash" messages to user-->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes style="list-style-type:none">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <br><hr><br>
+
+    <!--Note: This is instructional - it isn't the "proper" way to handle web forms. -->
+    <!--Please make sure you know any security implications before putting into production-->
+    <form method="post">
+        <br>
+        Passenger Class (select 1-3):<br>
+        <input type="radio" name="Pclass" value=1 checked> 1<br>
+        <input type="radio" name="Pclass" value=2> 2<br>
+        <input type="radio" name="Pclass" value=3> 3<br>
+
+        <br>
+        Passenger Age:<br>
+        <input type="text" name="Age"> <br>
+
+        <br>
+        Passenger Sex:<br>
+        <input type="radio" name="Sex" value="male" checked> Male<br>
+        <input type="radio" name="Sex" value="female"> Female<br>
+
+        <!--Also, note that we are not checking inputs on this web form as it was kept intentionally sparse-->
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
