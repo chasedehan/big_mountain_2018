@@ -26,14 +26,14 @@ X = pd.get_dummies(X)
     # Could be unit tested and profiled during training time and could put into prod in little time
 
 # Create a list of models - you can make this as complicated as you like
-clf_list = [GradientBoostingClassifier(),
+clfs = [GradientBoostingClassifier(),
             RandomForestClassifier(),
             AdaBoostClassifier()]
 
 # Evaluate Performance of the Models and Select the Best Performing
 print("Baseline score: {}".format(1 - (sum(y) / len(y))))
 model_scores = []
-for i, clf in enumerate(clf_list):
+for i, clf in enumerate(clfs):
     cv_scores = cross_val_score(clf, X, y, cv=5)
     mean_cv_score = cv_scores.mean()
     model_scores.append(mean_cv_score)
@@ -42,8 +42,8 @@ for i, clf in enumerate(clf_list):
 # Which model performs best?
 best_model = model_scores.index(max(model_scores))
 
-# clf0 has the best performance so lets train on all data
-best_clf = clf_list[best_model]
+# train best model on all data to prepare for export
+best_clf = clfs[best_model]
 best_clf.fit(X, y)
 
 # Save the pickle files to the file system
