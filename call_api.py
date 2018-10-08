@@ -1,50 +1,45 @@
-# call_api.py
-
-"""
-The purpose of this file is to look like a production system, which will call the service
-Potentially, this should even be a GUI running separately where you enter fields, which hits the model and
-tells you if you live or die.
-
-Yeah, I like that. Build a model using  one
-"""
-
 from flask import Flask, request, flash, render_template
 import requests
 
-
-
 app = Flask(__name__)
-app.secret_key = 'super secret key'
+app.secret_key = "some secret value"
 
 
+# "config" values
+PORT = 50002
+URL = 'http://127.0.0.1:5003/'
 
+
+# Create route to test if the service is up and running
 @app.route('/testing/<value>', methods=['GET', 'POST'])
-def upload_file(value):
+def test_running(value):
     return value
 
+
+# Route to send/receive prediction
 @app.route("/", methods=['GET', 'POST'])
-def waiting():
+def call_model_api():
     if request.method == 'POST':
 
-        result = {}
-        result['Age'] = request.form.get('Age', type=int)
-        result['Pclass'] = request.form.get('Pclass', type=int)
-        result['Sex'] = request.form.get('Sex')
+        # Build dict to pass as json
+        result = {'Age': request.form.get('Age', type=int),
+                  'Pclass': request.form.get('Pclass', type=int),
+                  'Sex': request.form.get('Sex')}
 
-        r = requests.post('http://127.0.0.1:5003/', json=result)
+        # Make the request to the model API
+        r = requests.post(URL, json=result)
         prediction = r.json()['prediction']
-        # prediction = prediction['prediction']
+
+        # Check the predictions and return the result
         if prediction == 0:
-            # return "You probably died."
             flash("You probably died")
         elif prediction == 1:
             flash("You probably lived")
-            # return "You probably lived."
         else:
             flash("There was an error, it's probably your fault.")
-            # return "There was an error with the request"
 
     return render_template('index.html')
 
+
 if __name__ == '__main__':
-    app.run(host='localhost', port=50002)
+    app.run(host='localhost', port=PORT)
