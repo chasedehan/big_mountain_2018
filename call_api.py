@@ -42,4 +42,4 @@ def call_model_api():
 
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=PORT)
+    app.run(port=PORT)

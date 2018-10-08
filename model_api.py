@@ -8,6 +8,10 @@ PORT = 5003
 
 app = Flask(__name__)
 
+# Load up the models into memory
+clf = joblib.load('model.joblib')
+model_columns = joblib.load('model_columns.joblib')
+
 
 # Create route to test if the service is up and running
 @app.route('/testing/<value>', methods=['GET', 'POST'])
@@ -40,7 +44,4 @@ def get_prediction():
 
 
 if __name__ == '__main__':
-    # Load up the Pickle Files to keep in memory
-    clf = joblib.load('model.pkl')
-    model_columns = joblib.load('model_columns.pkl')
     app.run(port=PORT)
