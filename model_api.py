@@ -15,7 +15,7 @@ model_columns = joblib.load('model_columns.joblib')
 
 # Create route to test if the service is up and running
 @app.route('/testing/<value>', methods=['GET', 'POST'])
-def upload_file(value):
+def test_running(value):
     return value
 
 
