@@ -27,8 +27,8 @@ X = pd.get_dummies(X)
 
 # Create a list of models - you can make this as complicated as you like
 clfs = [GradientBoostingClassifier(),
-            RandomForestClassifier(),
-            AdaBoostClassifier()]
+        RandomForestClassifier(),
+        AdaBoostClassifier()]
 
 # Evaluate Performance of the Models and Select the Best Performing
 print("Baseline score: {}".format(1 - (sum(y) / len(y))))
