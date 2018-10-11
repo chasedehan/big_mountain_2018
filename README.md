@@ -11,3 +11,7 @@ basic_flask.py  <-  A "Hello World!" Flask application
 build_model.py  <-  Script to build model, evaluate results, and serialize sklearn model  
 model_api.py  <-  Flask application for REST API to score model  
 call_api.py  <-  Flask application with GUI to call the REST API from model_api.py  
+
+### Contact  
+Please feel free to reach out to me if you have any questions or need any help with deployment.    
+chasedehan [at] yahoo.com
