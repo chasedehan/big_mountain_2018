@@ -32,12 +32,13 @@ def get_prediction():
         new_X = new_X.reindex(columns=model_columns, fill_value=0)
 
         # For simplicity, set up for a single observation
-        # If you wanted the probability, could use: clf.predict_proba(new_X)
-        prediction = clf.predict(new_X)
+        prediction = clf.predict(new_X)  # Gets the integer prediction (i.e. Survive or Die)
+        probability = clf.predict_proba(new_X)[0][0] # Gets the prediction probability of death
         # convert to int to pass back as json because comes out as np.array
         prediction = np.asscalar(prediction)
 
-        return jsonify({'prediction': prediction})
+        return jsonify({'prediction': prediction,
+                        'probability': probability})
 
     except ValueError:
         return jsonify({'value error': 1})

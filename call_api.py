@@ -29,12 +29,13 @@ def call_model_api():
         # Make the request to the model API
         r = requests.post(URL, json=result)
         prediction = r.json()['prediction']
+        probability = r.json()['probability']
 
         # Check the predictions and return the result
         if prediction == 0:
-            flash("You probably died")
+            flash("You probably died, with a probability of dying: {:.4f}".format(probability))
         elif prediction == 1:
-            flash("You probably lived")
+            flash("You probably lived, with a probability of dying: {:.4f}".format(probability))
         else:
             flash("There was an error, it's probably your fault.")
 
